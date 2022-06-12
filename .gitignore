@@ -1,0 +1,9 @@
+/vendor
+composer.lock
+.php-cs-fixer.cache
+Thumbs.db
+.DS_Store
+debug.log
+/.idea
+/.vscode
+/.vs
