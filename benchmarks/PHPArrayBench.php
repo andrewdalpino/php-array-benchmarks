@@ -15,4 +15,16 @@ class PHPArrayBench
 
         $b = array_fill(0, 100000000, -58.0);
     }
+
+    /**
+     * @Subject
+     * @Iterations(5)
+     * @OutputTimeUnit("seconds", precision=3)
+     */
+    public function createConstantFloatingPointPowerOfTwoVectors() : void
+    {
+        $a = array_fill(0, 134217728, 42.0);
+
+        $b = array_fill(0, 134217728, -58.0);
+    }
 }

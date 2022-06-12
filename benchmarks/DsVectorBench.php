@@ -29,4 +29,28 @@ class DsVectorBench
             $b->insert($i, 58.0);
         }
     }
+
+    /**
+     * @Subject
+     * @Iterations(5)
+     * @OutputTimeUnit("seconds", precision=3)
+     */
+    public function createConstantFloatingPointPowerOfTwoVectors() : void
+    {
+        $a = new Vector();
+
+        $a->allocate(134217728);
+
+        for ($i = 0; $i < 134217728; ++$i) {
+            $a->insert($i, 42.0);
+        }
+
+        $b = new Vector();
+
+        $b->allocate(134217728);
+
+        for ($i = 0; $i < 134217728; ++$i) {
+            $b->insert($i, 58.0);
+        }
+    }
 }
