@@ -1,11 +1,15 @@
 <?php
 
-namespace PHP\Array\Bechmarks;
+namespace PHP\Array\Benchmarks;
 
 use Ds\Vector;
 
 class DsVectorBench
 {
+    protected \Ds\Vector $a;
+
+    protected \Ds\Vector $b;
+
     /**
      * @Subject
      * @Iterations(5)
@@ -18,15 +22,7 @@ class DsVectorBench
         $a->allocate(100000000);
 
         for ($i = 0; $i < 100000000; ++$i) {
-            $a->insert($i, 42.0);
-        }
-
-        $b = new Vector();
-
-        $b->allocate(100000000);
-
-        for ($i = 0; $i < 100000000; ++$i) {
-            $b->insert($i, 58.0);
+            $a->push(42.0);
         }
     }
 
@@ -42,15 +38,98 @@ class DsVectorBench
         $a->allocate(134217728);
 
         for ($i = 0; $i < 134217728; ++$i) {
-            $a->insert($i, 42.0);
+            $a->push(42.0);
         }
+    }
 
-        $b = new Vector();
+    /**
+     * @Subject
+     * @Iterations(5)
+     * @OutputTimeUnit("seconds", precision=3)
+     */
+    public function createRandomIntegerVectors() : void
+    {
+        $a = new Vector();
 
-        $b->allocate(134217728);
+        $a->allocate(100000000);
 
-        for ($i = 0; $i < 134217728; ++$i) {
-            $b->insert($i, 58.0);
+        for ($i = 0; $i < 100000000; ++$i) {
+            $a->push(rand());
+        }
+    }
+
+    public function setUpIterate() : void
+    {
+        $this->a = new Vector();
+
+        $this->a->allocate(100000000);
+
+        for ($i = 0; $i < 100000000; ++$i) {
+            $this->a[] = 'noot noot';
+        }
+    }
+
+    /**
+     * @Subject
+     * @BeforeMethods("setUpIterate")
+     * @Iterations(5)
+     * @OutputTimeUnit("seconds", precision=3)
+     */
+    public function iterate() : void
+    {
+        foreach ($this->a as $value) {
+            $temp = $value;
+        }
+    }
+
+    public function setUpMapSqrtRandomFloatingPointVector() : void
+    {
+        $this->a = new Vector();
+
+        $this->a->allocate(100000000);
+
+        for ($i = 0; $i < 100000000; ++$i) {
+            $this->a[] = rand() / PHP_INT_MAX;
+        }
+    }
+
+    /**
+     * @Subject
+     * @BeforeMethods("setUpMapSqrtRandomFloatingPointVector")
+     * @Iterations(5)
+     * @OutputTimeUnit("seconds", precision=3)
+     */
+    public function mapSqrtRandomFloatingPointVector() : void
+    {
+        $b = $this->a->map('sqrt');
+    }
+
+    public function setUpDotTwoRandomFloatingPointVectors() : void
+    {
+        $this->a = new Vector();
+        $this->b = new Vector();
+
+        $this->a->allocate(100000000);
+        $this->b->allocate(100000000);
+
+        for ($i = 0; $i < 100000000; ++$i) {
+            $this->a->push(rand() / PHP_INT_MAX);
+            $this->b->push(rand() / PHP_INT_MAX);
+        }
+    }
+
+    /**
+     * @Subject
+     * @BeforeMethods("setUpDotTwoRandomFloatingPointVectors")
+     * @Iterations(5)
+     * @OutputTimeUnit("seconds", precision=3)
+     */
+    public function dotTwoRandomFloatingPointVectors() : void
+    {
+        $sigma = 0.0;
+
+        foreach ($this->a as $i => $valueA) {
+            $sigma += $valueA * $this->b[$i];
         }
     }
 }
