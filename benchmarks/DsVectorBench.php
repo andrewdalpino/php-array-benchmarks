@@ -1,14 +1,14 @@
 <?php
 
-namespace PHP\Array\Benchmarks;
+namespace PHP\ArrayImplementation\Benchmarks;
 
 use Ds\Vector;
 
 class DsVectorBench
 {
-    protected \Ds\Vector $a;
+    protected Vector $a;
 
-    protected \Ds\Vector $b;
+    protected Vector $b;
 
     /**
      * @Subject
