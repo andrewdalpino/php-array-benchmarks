@@ -1,14 +1,14 @@
 <?php
 
-namespace PHP\Array\Benchmarks;
+namespace PHP\ArrayImplementation\Benchmarks;
 
 use SplFixedArray;
 
-class SplArrayBench
+class SPLFixedArrayBench
 {
-    protected \SplFixedArray $a;
+    protected SplFixedArray $a;
 
-    protected \SplFixedArray $b;
+    protected SplFixedArray $b;
 
     /**
      * @Subject

@@ -1,6 +1,6 @@
 <?php
 
-namespace PHP\Array\Benchmarks;
+namespace PHP\ArrayImplementation\Benchmarks;
 
 class PHPArrayBench
 {
